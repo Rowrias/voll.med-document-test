@@ -28,7 +28,7 @@ public class SecurityConfigurations {
 	        .authorizeHttpRequests(req -> {
 	            req.antMatchers("/login").permitAll();
 	        })
-	        .authorizeRequests(auth -> auth.anyRequest().authenticated())
+	        .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
 	        .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 	        .build();
 	}
