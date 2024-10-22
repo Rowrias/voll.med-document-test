@@ -24,7 +24,6 @@ import med.voll.api.domain.paciente.Paciente;
 @Entity(name = "Consulta")
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Consulta {
 
@@ -56,6 +55,8 @@ public class Consulta {
 		this.motivoCancelamento = motivoCancelamento;
 	}
 
+	public Consulta(Long id, Medico medico, Paciente paciente, LocalDateTime data) {
+	}
 
 	// Getters Setters pq @getter não esta funcionando
 	public Long getId() {

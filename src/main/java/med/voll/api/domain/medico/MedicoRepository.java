@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.data.repository.query.Param;
 
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
 	
@@ -33,22 +34,10 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
     		""")
 	Medico escolherMedicoAleatorioLivreNaData(Especialidade especialidade, LocalDateTime data);
 
-    @Query("""
-            select m from Medico m
-            where
-            m.ativo = true
-            and
-            m.especialidade = :especialidade
-            and
-            m.id not in(
-                select c.medico.id from Consulta c
-                where
-                c.data = :data
-    		  	and
-                c.motivoCancelamento is null
-            )
-            order by rand()
-            limit 1
-    		""")
-	Boolean findAtivoById(Long id);
+	@Query("""
+			select m from Medico m 
+			where m.ativo = true 
+			and m.id = :id
+			""")
+	Boolean findAtivoById(@Param("id") Long id);
 }
